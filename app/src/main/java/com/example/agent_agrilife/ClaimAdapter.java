@@ -1,10 +1,13 @@
 package com.example.agent_agrilife;
 
+import android.app.AppOpsManager;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,7 +42,15 @@ public class ClaimAdapter extends RecyclerView.Adapter<ClaimAdapter.MyViewHolder
         holder.farmerName.setText(user.name);
         holder.farmEmail.setText(user.email);
         holder.policyOpt.setText(user.uid);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openApproveRejectWindow();
+            }
+        });
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -57,4 +68,9 @@ public class ClaimAdapter extends RecyclerView.Adapter<ClaimAdapter.MyViewHolder
             policyOpt=(TextView) itemView.findViewById(R.id.optPolicy);
         }
     }
+    private void openApproveRejectWindow() {
+        Intent ApproveRejectWindow = new Intent(context , ApproveRejectClaim.class);
+        context.startActivity(ApproveRejectWindow);
+    }
+
 }

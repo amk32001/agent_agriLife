@@ -77,15 +77,12 @@ public class LoginActivity extends AppCompatActivity {
                 String pass_str= Objects.requireNonNull(password.getEditText()).getText().toString().trim();
                 firebaseAuth.signInWithEmailAndPassword(email_str,pass_str).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task)
-                    {
-                        if(task.isSuccessful())
-                        {
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         }
-                        else
-                        {
-                            Toast.makeText(LoginActivity.this, "Failed!! try again", Toast.LENGTH_SHORT).show();
+                        else {
+                            Toast.makeText(LoginActivity.this, task.getException() + "Failed!! try again", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -94,17 +91,4 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-
-        if (pressedTime + 2000 > System.currentTimeMillis()) {
-            Intent a = new Intent(Intent.ACTION_MAIN);
-            a.addCategory(Intent.CATEGORY_HOME);
-            a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(a);
-        } else {
-            Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
-        }
-        pressedTime = System.currentTimeMillis();
-    }
 }

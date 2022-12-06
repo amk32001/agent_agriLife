@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-
         if (pressedTime + 2000 > System.currentTimeMillis()) {
             Intent a = new Intent(Intent.ACTION_MAIN);
             a.addCategory(Intent.CATEGORY_HOME);

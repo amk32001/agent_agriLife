@@ -3,7 +3,7 @@ package com.example.agent_agrilife;
 public class FarmUser
 {
     String address,email,name,password,phone,uid;
-
+    public FarmUser(){}
     public FarmUser(String address,String email,String name,String password,String phone,String uid)
     {
         this.address=address;
