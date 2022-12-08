@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 
 public class ClaimReq extends Fragment {
-    ArrayList<FarmUser> farmUserArrayList= new ArrayList<>();
+    ArrayList<FarmUser> farmUserArrayList;
     ClaimAdapter claimAdapter;
     RecyclerView recyclerView;
     FirebaseFirestore firebaseFirestore;

@@ -18,7 +18,7 @@ public class ClaimAdapter extends RecyclerView.Adapter<ClaimAdapter.MyViewHolder
 {
 
     Context context;
-    ArrayList<FarmUser> userList=new ArrayList<>();
+    ArrayList<FarmUser> userList;
 
     public ClaimAdapter(Context context, ArrayList<FarmUser> userList)
     {
@@ -39,9 +39,9 @@ public class ClaimAdapter extends RecyclerView.Adapter<ClaimAdapter.MyViewHolder
     {
         FarmUser user=userList.get(position);
 
-        holder.farmerName.setText(user.name);
-        holder.farmEmail.setText(user.email);
-        holder.policyOpt.setText(user.uid);
+        holder.farmerName.setText(user.getName());
+        holder.farmEmail.setText(user.getEmail());
+        holder.policyOpt.setText(user.getUid());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

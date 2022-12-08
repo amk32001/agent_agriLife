@@ -1,46 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
+    app:cardBackgroundColor="#F1FFE0"
     app:cardCornerRadius="8dp"
-    app:cardElevation="8dp">
+    app:cardElevation="5dp">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginVertical="6dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginVertical="6dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:orientation="vertical">
 
-
-            <TextView
-                android:id="@+id/farmerName"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:text="Farmer_Name" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/farmEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Email" />
 
-            <TextView
-                android:id="@+id/optPolicy"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Policy_Opted" />
+                <TextView
+                    android:id="@+id/farmerName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Farmer_Name"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/farmEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/optPolicy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Policy_Opted"
+                    android:textSize="15sp" />
+            </LinearLayout>
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="35dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/approved"
+            tools:srcCompat="@drawable/approved" />
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>
