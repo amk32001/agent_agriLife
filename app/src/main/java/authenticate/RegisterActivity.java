@@ -29,13 +29,15 @@ import java.util.Objects;
 public class RegisterActivity extends AppCompatActivity
 {
     //variables related to firebase.
+
+    public static String passwordAuth;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
 
     Button register;
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
-    TextInputLayout full_name,email,password,confirm_pass,aadhar;
+    TextInputLayout full_name,email,password,confirm_pass,aadhar;//security_que;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -52,6 +54,7 @@ public class RegisterActivity extends AppCompatActivity
         password=findViewById(R.id.password_reg);
         confirm_pass=findViewById(R.id.password_reg1);
         aadhar=findViewById(R.id.adhar_card_no);
+       // security_que=findViewById(R.id.secure_que);
 
 
         initDatePicker();
@@ -79,6 +82,7 @@ public class RegisterActivity extends AppCompatActivity
                     String confirmPassStr = Objects.requireNonNull(confirm_pass.getEditText()).getText().toString().trim();
                     String aadharStr = Objects.requireNonNull(aadhar.getEditText()).getText().toString().trim();
                     String date = dateButton.getText().toString().trim();
+                    //String secure_que= Objects.requireNonNull(security_que.getEditText()).getText().toString().trim();
 
                    if(!checkForValidity(fullNameStr, emailStr, passStr, confirmPassStr, aadharStr))//this func checks for validity of each field.
                    {
@@ -97,12 +101,13 @@ public class RegisterActivity extends AppCompatActivity
                                }
                                else
                                {
+                                   //passwordAuth=passStr;
                                    firebaseAuth.createUserWithEmailAndPassword(emailStr, passStr)
                                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                                @Override
                                                public void onComplete(@NonNull Task<AuthResult> task) {
                                                    try {
-                                                       AgentDetails agentDetails = new AgentDetails(fullNameStr, emailStr, aadharStr, date);
+                                                       AgentDetails agentDetails = new AgentDetails(fullNameStr, emailStr, aadharStr,date,passStr);
                                                        firebaseFirestore.collection("AgentDetails").document(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).set(agentDetails).
                                                        addOnCompleteListener(new OnCompleteListener<Void>() {
                                                            @Override
@@ -173,6 +178,8 @@ public class RegisterActivity extends AppCompatActivity
            // confirm_pass.requestFocus();
             return false;
         }
+
+
         return true;
     }
 

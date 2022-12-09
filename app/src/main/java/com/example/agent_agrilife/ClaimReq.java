@@ -1,5 +1,7 @@
 package com.example.agent_agrilife;
 
+import static android.content.Intent.getIntent;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
@@ -13,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
@@ -21,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class ClaimReq extends Fragment {
@@ -28,6 +32,7 @@ public class ClaimReq extends Fragment {
     ClaimAdapter claimAdapter;
     RecyclerView recyclerView;
     FirebaseFirestore firebaseFirestore;
+   // String passStr= getActivity().getIntent().getStringExtra("password");
 
 
     @Override
@@ -36,6 +41,7 @@ public class ClaimReq extends Fragment {
     {
 
         View view=inflater.inflate(R.layout.fragment_claim_req, container, false);
+        //Toast.makeText(getContext(), passStr, Toast.LENGTH_SHORT).show();
         try {
             recyclerView = view.findViewById(R.id.recyclerView);
             recyclerView.setHasFixedSize(true);

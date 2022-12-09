@@ -20,7 +20,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="#FFFFFF"
-        app:itemRippleColor="@color/purple_200"
         app:itemTextAppearanceActive="@style/Theme.Agent_agriLife"
         app:itemTextAppearanceInactive="@style/Theme.Agent_agriLife"
         app:menu="@menu/bottom_nav" />

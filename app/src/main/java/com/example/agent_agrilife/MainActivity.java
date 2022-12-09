@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity
     ClaimReq claimReq =new ClaimReq();
     Profile profile=new Profile();
     VerifyReq verifyReq=new VerifyReq();
+   // String passStr= getIntent().getStringExtra("password");
+
 
 
 
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bottomNavigationView=findViewById(R.id.bottom_nav);
+        //Toast.makeText(this, passStr, Toast.LENGTH_SHORT).show();
 
 
        try{ getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, claimReq).commit();}

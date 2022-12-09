@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    app:cardBackgroundColor="#F1FFE0"
+    app:cardBackgroundColor="#F5FFF6"
     app:cardCornerRadius="8dp"
     app:cardElevation="5dp">
 
@@ -61,8 +61,8 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="35dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/approved"
-            tools:srcCompat="@drawable/approved" />
+            android:src="@drawable/pending"
+            tools:srcCompat="@drawable/pending" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
