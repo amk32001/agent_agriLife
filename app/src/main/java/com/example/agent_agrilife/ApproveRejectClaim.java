@@ -31,6 +31,7 @@ public class ApproveRejectClaim extends AppCompatActivity {
     final Context context = this;
     String pass_word="";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -184,4 +185,9 @@ public class ApproveRejectClaim extends AppCompatActivity {
         alertDialog.show();
     }
 
+    @Override
+    public void onBackPressed() {
+
+        super.onBackPressed();
+    }
 }

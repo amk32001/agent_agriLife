@@ -24,45 +24,30 @@
             android:layout_marginEnd="10dp"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="250dp"
+            <TextView
+                android:id="@+id/farmerName"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:text="Farmer_Name"
+                android:textSize="15sp" />
 
+            <TextView
+                android:id="@+id/farmEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:textSize="15sp" />
 
-                <TextView
-                    android:id="@+id/farmerName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Farmer_Name"
-                    android:textSize="15sp" />
+            <TextView
+                android:id="@+id/optPolicy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Policy_Opted"
+                android:textSize="15sp" />
 
-                <TextView
-                    android:id="@+id/farmEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Email"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/optPolicy"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="Policy_Opted"
-                    android:textSize="15sp" />
-            </LinearLayout>
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="35dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/pending"
-            tools:srcCompat="@drawable/pending" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
