@@ -35,6 +35,14 @@ public class ApproveRejectClaim extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.approve_reject_claim);
+        DocumentReference document=FirebaseFirestore.getInstance().collection("AgentDetails").document(FirebaseAuth.getInstance().getUid());
+        document.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                pass_word=value.getString("password");
+                //Toast.makeText(context, pass_word, Toast.LENGTH_SHORT).show();
+            }
+        });
         init();
 
     }
@@ -47,34 +55,30 @@ public class ApproveRejectClaim extends AppCompatActivity {
         approve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean authentic_agen = verifyAgent();
+                verifyAgentApprove();
                 //Toast.makeText(context, authentic_agen + "", Toast.LENGTH_SHORT).show();
 //                if(authentic_agen)
-//                    Toast.makeText(context, "Successfully approved", Toast.LENGTH_SHORT).show();
-//                else
-//                    Toast.makeText(context, "Authentication failed", Toast.LENGTH_SHORT).show();
+//                {
+//                    approve.setVisibility(View.GONE);
+//                    reject.setVisibility(View.GONE);
+//                }
+
             }
         });
 
         reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean authentic_agen = verifyAgentReject();
-               // Toast.makeText(getApplicationContext(), passwordAuth, Toast.LENGTH_SHORT).show();
-                //Toast.makeText(context, authentic_agen + "", Toast.LENGTH_SHORT).show();
-//                if(authentic_agen)
-//                    Toast.makeText(context, "Successfully approved", Toast.LENGTH_SHORT).show();
-//                else
-//                    Toast.makeText(context, "Authentication failed", Toast.LENGTH_SHORT).show();
+                verifyAgentReject();
             }
         });
 
     }
 
     //reject claim
-    boolean verifyAgentReject()
+    void verifyAgentReject()
     {
-        boolean[] agent_verified = {false};
+
         // get prompts.xml view
         LayoutInflater li = LayoutInflater.from(context);
         View promptsView = li.inflate(R.layout.reject_prompt, null);
@@ -100,20 +104,11 @@ public class ApproveRejectClaim extends AppCompatActivity {
                                 // edit text
                                 String pass_code = userInput.getText().toString();
 
-                                DocumentReference document=FirebaseFirestore.getInstance().collection("AgentDetails").document(FirebaseAuth.getInstance().getUid());
-                                document.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                             pass_word=value.getString("password");
-                                    }
-                                });
                                 if(pass_code.equals(pass_word)) {
-                                    agent_verified[0] = true;
                                     Toast.makeText(getApplicationContext(),"Authentication Successful", Toast.LENGTH_SHORT).show();
                                 }
                                 else
                                 {
-                                    agent_verified[0]=false;
                                     Toast.makeText(getApplicationContext(),"Authentication failed!!", Toast.LENGTH_SHORT).show();
                                 }
                                 // if passcode is same as password / unique code, he is allwed to put request
@@ -122,7 +117,6 @@ public class ApproveRejectClaim extends AppCompatActivity {
                 .setNegativeButton("Cancel",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                agent_verified[0] = false;
                                 dialog.cancel();
                             }
                         });
@@ -132,13 +126,13 @@ public class ApproveRejectClaim extends AppCompatActivity {
 
         // show it
         alertDialog.show();
-        return agent_verified[0];
+//        return agent_verified[0];
     }
 
 
     //for approval
-    boolean verifyAgent() {
-        final boolean[] agent_verified = {false};
+    void verifyAgentApprove() {
+
         // get prompts.xml view
         LayoutInflater li = LayoutInflater.from(context);
         View promptsView = li.inflate(R.layout.agent_verification_prompt, null);
@@ -161,21 +155,16 @@ public class ApproveRejectClaim extends AppCompatActivity {
                                 // get user input and set it to result
                                 // edit text
                                 String pass_code = userInput.getText().toString();
-                                DocumentReference document=FirebaseFirestore.getInstance().collection("AgentDetails").document(FirebaseAuth.getInstance().getUid());
-                                document.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                        pass_word=value.getString("password");
-                                    }
-                                });
+                               // Toast.makeText(context, pass_code, Toast.LENGTH_SHORT).show();
+
                                 if(pass_code.equals(pass_word)) {
-                                    agent_verified[0] = true;
+
                                     Toast.makeText(getApplicationContext(),"Authentication Successful", Toast.LENGTH_SHORT).show();
 
                                 }
                                 else
                                 {
-                                    agent_verified[0]=false;
+
                                     Toast.makeText(getApplicationContext(),"Authentication failed!!!", Toast.LENGTH_SHORT).show();
                                 }
                                 // if passcode is same as password / unique code, he is allwed to put request
@@ -184,7 +173,6 @@ public class ApproveRejectClaim extends AppCompatActivity {
                 .setNegativeButton("Cancel",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                agent_verified[0] = false;
                                 dialog.cancel();
                             }
                         });
@@ -194,7 +182,6 @@ public class ApproveRejectClaim extends AppCompatActivity {
 
         // show it
         alertDialog.show();
-        return agent_verified[0];
     }
 
 }
