@@ -1,14 +1,21 @@
 package com.example.agent_agrilife;
 
 
-import authenticate.RegisterActivity;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Registry;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,52 +24,84 @@ import android.view.LayoutInflater;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
+import java.io.IOException;
 
 public class ApproveRejectClaim extends AppCompatActivity {
     Button approve, reject;
 
-    ImageView damaged_crop , sowing_certificate;
-    final Context context = this;
+    Context context = this;
     String pass_word="";
+
+
+    // Initialize Firebase Storage reference
+    FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.approve_reject_claim);
+        init();
+        //Toast.makeText(context, farmerId, Toast.LENGTH_SHORT).show();
         DocumentReference document=FirebaseFirestore.getInstance().collection("AgentDetails").document(FirebaseAuth.getInstance().getUid());
         document.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                assert value != null;
                 pass_word=value.getString("password");
                 //Toast.makeText(context, pass_word, Toast.LENGTH_SHORT).show();
             }
         });
-        init();
+
 
     }
     private void init(){
-        approve = findViewById(R.id.approve);
-        reject = findViewById(R.id.reject);
-        damaged_crop = findViewById(R.id.damage_pic);
-        sowing_certificate = findViewById(R.id.sowing_certificate);
+
+        approve=(Button) findViewById(R.id.approve);
+        reject=(Button) findViewById(R.id.reject);
+
+ //Create an array of image file paths
+        String[] imagePaths ={"file1", "file2", "file3", "file4"};
+
+        // Assuming you have four ImageViews in your layout with IDs: imageView1, imageView2, imageView3, imageView4
+        ImageView[] imageViews = {
+                (ImageView) findViewById(R.id.imageView1),
+                (ImageView) findViewById(R.id.imageView2),
+                (ImageView) findViewById(R.id.imageView3),
+                (ImageView) findViewById(R.id.imageView4)
+        };
+       // Toast.makeText(context, farmerId, Toast.LENGTH_SHORT).show();
+        Bundle bundle = getIntent().getExtras();
+        String farmerId = bundle.getString("farmId");
+        for (int i = 0; i < imagePaths.length; i++) {
+            // Create a reference to the image file
+
+            StorageReference imageRef = firebaseStorage.getReference(farmerId).child(imagePaths[i]);
+
+            GlideApp.with(this)
+                    .load(imageRef)
+                    .into(imageViews[i]);
+        }
+
 
         approve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 verifyAgentApprove();
-                //Toast.makeText(context, authentic_agen + "", Toast.LENGTH_SHORT).show();
-//                if(authentic_agen)
-//                {
-//                    approve.setVisibility(View.GONE);
-//                    reject.setVisibility(View.GONE);
-//                }
 
             }
         });

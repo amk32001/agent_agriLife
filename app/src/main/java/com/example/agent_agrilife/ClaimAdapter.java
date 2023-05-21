@@ -3,6 +3,7 @@ package com.example.agent_agrilife;
 import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ public class ClaimAdapter extends RecyclerView.Adapter<ClaimAdapter.MyViewHolder
         return new MyViewHolder(v);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull ClaimAdapter.MyViewHolder holder, int position)
     {
@@ -45,7 +47,12 @@ public class ClaimAdapter extends RecyclerView.Adapter<ClaimAdapter.MyViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openApproveRejectWindow();
+                //Toast.makeText(context, String.valueOf(user.getUid()), Toast.LENGTH_SHORT).show();
+                Intent ApproveRejectWindow = new Intent(context , ApproveRejectClaim.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("farmId", String.valueOf(user.getUid()));
+                ApproveRejectWindow.putExtras(bundle);
+                context.startActivity(ApproveRejectWindow);
             }
         });
     }
@@ -56,6 +63,9 @@ public class ClaimAdapter extends RecyclerView.Adapter<ClaimAdapter.MyViewHolder
     public int getItemCount() {
         return userList.size();
     }
+
+
+
 
     public static class MyViewHolder extends RecyclerView.ViewHolder
     {
@@ -68,9 +78,18 @@ public class ClaimAdapter extends RecyclerView.Adapter<ClaimAdapter.MyViewHolder
             policyOpt=(TextView) itemView.findViewById(R.id.optPolicy);
         }
     }
-    private void openApproveRejectWindow() {
-        Intent ApproveRejectWindow = new Intent(context , ApproveRejectClaim.class);
-        context.startActivity(ApproveRejectWindow);
-    }
+//    private void openApproveRejectWindow() {
+//        try{
+//        Intent ApproveRejectWindow = new Intent(context , ApproveRejectClaim.class);
+//
+//        ApproveRejectWindow.putExtras(bundle);
+//
+//        context.startActivity(ApproveRejectWindow);}
+//        catch(Exception e)
+//        {
+//            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+//        }
+//
+//    }
 
 }
